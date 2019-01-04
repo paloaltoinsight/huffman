@@ -12,11 +12,12 @@ class HuffmanCoder:
         self.huffcode = self.hufencode()
 
     def __repr__(self):
-        template = "{0:<4}{1:>4}{2:>8}\n"
+        col_widths = [4, 7, 20]
+        template = "{0:<%d}{1:>%d}{2:>%d}\n" % (col_widths[0], col_widths[1], col_widths[2])
         s = template.format("char", "n", "code")
-        s += '-' * 16 + '\n'
+        s += '-' * sum(col_widths) + '\n'
 
-        for letter, counts in self.letter_counts.items():
+        for letter, counts in self.letter_counts.most_common(50):
             code = "".join([str(i) for i in self.hufftable[letter]])
             s += template.format(letter, counts, code)
 
@@ -79,12 +80,12 @@ class HuffmanCoder:
         return len(self.huffcode)
 
 if __name__ == '__main__':
-    s = "effervescence"
+    with open("long_japanese.txt") as f:
+        s = f.read()
     coder = HuffmanCoder(s)
     print("Encoding Table")
     print(coder)
-    print("Original string:", s)
-    print("Encoded string:", coder.huffcode)
+    print("Original character count: %d" % len(s))
     print("Original string bits: %d" % coder.original_text_bits())
     print("Encoded string bits: %d" % coder.encoded_text_bits())
 
