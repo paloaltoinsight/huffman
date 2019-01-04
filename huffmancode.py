@@ -1,11 +1,11 @@
-import sys
 from binarytree import BinaryTreeNode
 from pq import MinPQ
+from collections import Counter
 
 class HuffmanCoder:
     def __init__(self, text):
         self.text = text
-        self.letter_counts = self.create_lettercounts()
+        self.letter_counts = Counter(text)
         self.pq = self.create_base_pq()
         self.hufftree = self.create_huffmancode()
         self.hufftable = self.dfs()
@@ -21,17 +21,6 @@ class HuffmanCoder:
             s += template.format(letter, counts, code)
 
         return s
-
-    def create_lettercounts(self):
-        letter_counts = dict()
-
-        for c in self.text:
-            if c in letter_counts:
-                letter_counts[c] += 1
-            else:
-                letter_counts[c] = 1
-
-        return letter_counts
 
     def create_base_pq(self):
         q = MinPQ()

@@ -6,4 +6,4 @@ class BinaryTreeNode:
         self.visited = False
 
     def __repr__(self):
-        return str(self.d) + " " + str(self.l) + " " + str(self.r)
+        return str(self.d) + "__" + str(self.l) + "-" + str(self.r)
